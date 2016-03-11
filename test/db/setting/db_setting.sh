@@ -4,7 +4,7 @@ source /root/.bash_profile
 
 # selinux stop
 setenforce 0
-sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux
+sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 
 # iptables stop
 /etc/init.d/iptables stop
