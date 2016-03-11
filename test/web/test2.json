@@ -1,0 +1,45 @@
+{
+  "variables": {
+    "sn": "従量課金",
+    "ps": "/root/packer/credentials.publishsettings",
+    "sa": "azurestudystorage"
+  },
+  "builders": [
+    {
+      "type": "azure",
+      "publish_settings_path": "{{user `ps`}}",
+      "subscription_name": "{{user `sn`}}",
+      "storage_account": "{{user `sa`}}",
+      "storage_account_container": "images",
+      "os_type": "Linux",
+      "os_image_label": "OpenLogic 6.7",
+      "location": "Japan East",
+      "instance_size": "Small",
+      "user_image_label": "murapackertest-2016030902",
+      "ssh_pty": "true"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+      "inline": [
+        "sudo yum install git expect -y",
+        "sudo yum update -y",
+        "sudo mkdir -p /usr/local/src/git",
+        "sudo echo '[user]' > /root/.gitconfig",
+        "sudo echo '        name = rental' >> /root/.gitconfig",
+        "sudo echo '        email = re_nakamura@nnetworks.co.jp' >> /root/.gitconfig",
+        "sudo mkdir -p /root/.ssh",
+        "sudo echo -e '-----BEGIN RSA PRIVATE KEY-----\nMIIEoQIBAAKCAQEAxFse2Papomfyv1vAivL8AqGvBcYCR4tTFkz5Gn7p1+QZN5km\nh0NFad3qjHWQHQpOlMNGLY/9GWPU+P9P7ThDGUoQ4W2j9qatMI/kaGPY9uGNXpKr\nlIwPrfHNzCF5z8Fq8/MWfj6bpnrHapGmOu3MVtDcEluZNID4TVH49v7VSuMQ+V+L\nrNRJV1h0/pxcHZrMImmFfBnmpxtH3QDO05QY1HRcZqGUvyNSKOJDBoTXqGAP8rtZ\njGxlXzbThXbcS4CYBw82/EF1c90JikcvsZmv1en8ZOWLG9mtGH7UQhzYnWcSo9hQ\n8X2GSVpQvVF6NbEV3Au+96awojyB6C0Ruzg6UQIBIwKCAQBDUnD57iuII6OvUqhq\nJ2xYrHaFovl3nXuSngxDmTo7ZCXnLTHH+c6n9FBqq/blYp6ZZ4XGeoKpnpIpfBtn\nRn1nwZ9jO4isVmdD2ZAjynZGBDB4Mkl0wk6Ex+7JpRPSM6+kGNSDDia8vGGg4XrS\nYCjNTuxeEMbQLDff/tkEOh0+Pp5ZrRfFfrco2C6OMIAtlFpwiq0onXX+fznZn9QT\nQRlIc27lfRPFDwgp7MzAe9D/9dU2ca2jFGpokHTwDm+ebQ6n8ZG7wul9qHG91/aW\neDJdjHIsGvn/18zeiUOzfN875JD5HCNz6hfhFiyoRX92nSP1SSaTJnzvjWyz2AMm\nXDtLAoGBAPpB5q2kOXAciWJwGfZdqx6IeZm/FSfMlf3GXUJ9P+k5cILhLkwywGgz\nYERE/gzdywNFO+wpHjSxLAHGZiaak7pmGkTl1vlddEPKzjB2xbFIqTQ43FpOxRCp\nSjv70NNw0qREljYbHxV47MxkpW8E3sh2iPIMv3YDxrD0req9H+0tAoGBAMjclViz\nPphZAzVvykU6/vsnBh1b5Ca0POFb5rceK6XdCIC9cSQ4TGd7Of7lcv6KsrQkCTLy\nUqT9ECdYO/Ai2XLhybOyx1MSks9VwxquoBZRvHsrZSz4NIbmJD16ynoTOceIsAjE\nSQB/7Ndt4VdsMqSEwscTDE45GVPm88h44KA1AoGBAOTOicNUUcWWbvrqJl2Xd+Fm\n1ZPh53TYTp7hP1K7qCWw2+VgKlRLqJnIkoePiTBVwO0MGYd2DPz5wdW8tSqb9Met\nzt/oFQE/gD37QCxPValnARnNlkPwPyUtEKve6s/yH6whc2SrFRryN5ZNZA27T1gx\n3EsEV0dT6NxNa89N1AwLAoGAFvSjWpgkaS6+icOiFopmSJa+3sisXDHbEnDnKt7g\naros24NdYzmiVPgj4p3hQalzgk1C4UBD9ZlDrLmgczcuy00BG9nq5OwuCREdnKY+\nLm+9xO8EP6dWddEotpGwvX6KQrCJJZLGg7bZPTEhEU4xrGbxsFnyxxx37FToqTJi\n0HsCgYAH4b3zZLmu3jfYgdk7odJwIu3dR94UENQheQLoN+RiBckulrfr7BLqwGBu\n6hDW+cxoF2591gtKtSb69eJ4dkFnLec/lZshoE2KtpFvpuNdyM2lHXTflfUZ+1Gx\nme2YvDkGCNahNgAjJdxNpoOngf0g1+OMtlHfBauMYij4DULmCg==\n-----END RSA PRIVATE KEY-----' >> /root/.ssh/id_rsa",
+        "sudo chmod 600 /root/.ssh/id_rsa",
+        "sudo ssh-keyscan github.com >> /root/.ssh/known_hosts",
+        "sudo bash -c 'cd /usr/local/src/git;git init'",
+        "sudo bash -c 'cd /usr/local/src/git;git pull git@github.com:rental/packer.git'",
+        "sudo chmod +x /usr/local/src/git/web_setting.sh",
+        "sudo /usr/local/src/git/web_setting.sh"
+      ],
+      "inline_shebang": "/bin/sh -x",
+      "type": "shell"
+    }
+  ]
+}
