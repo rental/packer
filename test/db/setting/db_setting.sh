@@ -15,6 +15,7 @@ chkconfig ip6tables off
 # mysql install
 yum install -y mysql mysql-server
 /etc/init.d/mysqld start
+chkconfig mysqld on
 /usr/bin/mysqladmin -u root password 'wordpress'
 expect -c "
 spawn mysql_secure_installation
