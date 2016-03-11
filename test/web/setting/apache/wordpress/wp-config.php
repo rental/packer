@@ -35,7 +35,7 @@ define('DB_USER', 'wordpress');
 define('DB_PASSWORD', 'wordpress');
 
 /** MySQL のホスト名 */
-define('DB_HOST', '10.0.0.15');
+define('DB_HOST', '10.0.0.110');
 
 /** データベースのテーブルを作成する際のデータベースの文字セット */
 define('DB_CHARSET', 'utf8');
