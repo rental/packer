@@ -15,7 +15,7 @@
       "os_image_label": "OpenLogic 6.7",
       "location": "Japan East",
       "instance_size": "Small",
-      "user_image_label": "muratest-{{timestamp}}",
+      "user_image_label": "test-db-{{timestamp}}",
       "ssh_pty": "true"
     }
   ],
