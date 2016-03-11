@@ -17,10 +17,15 @@ chkconfig ip6tables off
 
 # apache php mysql install
 cd /tmp/setting
-yum install -y httpd mysql php php-mysql expect
+yum install -y httpd httpd-devel mysql php php-mysql expect
+yum groupinstall -y "Development Tools"
 cp -p apache/wordpress.conf /etc/httpd/conf.d/
+cd /tmp/setting/apache/mod_rpaf
+/usr/sbin/apxs -i -c -n mod_rpaf-2.0.so mod_rpaf-2.0.c
+cp -p mod_rpaf.conf /etc/httpd/conf.d
 
 #wordpress install
+cd /tmp/setting
 mv apache/wordpress /var/www/
 chown -R apache. /var/www/wordpress
 /etc/init.d/httpd start

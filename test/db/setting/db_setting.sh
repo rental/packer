@@ -13,7 +13,8 @@ chkconfig iptables off
 chkconfig ip6tables off
 
 # mysql install
-yum install -y mysql mysql-server
+yum install -y mysql mysql-server mysql-devel
+yum groupinstall -y "Development Tools"
 /etc/init.d/mysqld start
 chkconfig mysqld on
 /usr/bin/mysqladmin -u root password 'wordpress'
