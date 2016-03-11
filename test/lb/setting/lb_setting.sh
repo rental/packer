@@ -18,6 +18,6 @@ yum install -y nginx
 cd /etc/nginx/conf.d
 mv default.conf{,.org}
 mv example_ssl.conf{,.org}
-mv /tmp/setting/nginx/vhost.conf /etc/nginx/conf.d/vhost.conf
+mv /tmp/setting/vhost.conf /etc/nginx/conf.d/vhost.conf
 /etc/init.d/nginx start
 chkconfig nginx on
