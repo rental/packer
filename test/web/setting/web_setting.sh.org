@@ -23,4 +23,10 @@ cp -p apache/wordpress.conf /etc/httpd/conf.d/
 cd /tmp/setting/apache/mod_rpaf
 /usr/sbin/apxs -i -c -n mod_rpaf-2.0.so mod_rpaf-2.0.c
 cp -p mod_rpaf.conf /etc/httpd/conf.d
+
+#wordpress install
+cd /tmp/setting
+mv apache/wordpress /var/www/
+chown -R apache. /var/www/wordpress
+/etc/init.d/httpd start
 chkconfig httpd on
