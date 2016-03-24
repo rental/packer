@@ -24,3 +24,10 @@ cd /tmp/setting/apache/mod_rpaf
 /usr/sbin/apxs -i -c -n mod_rpaf-2.0.so mod_rpaf-2.0.c
 cp -p mod_rpaf.conf /etc/httpd/conf.d
 chkconfig httpd on
+
+# github ssh setting
+cd /tmp/ssh
+mkdir ~apache/.ssh
+cp github.id_rsa config ~apache/.ssh/
+chown -R apache. ~apache/.ssh
+chmod 700 ~apache/.ssh
