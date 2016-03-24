@@ -32,7 +32,8 @@
     {
       "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
       "inline": [
-	"sudo install -o root -g root -m 440 /tmp/setting/sudo.tmp /etc/sudoers.d/azureuser",
+	"sudo install -o root -g root -m 440 /tmp/setting/sudo.tmp /etc/sudoers.d/nnet",
+        "sudo newusers /tmp/setting/user_file",
         "sudo yum install git expect -y",
         "sudo yum update -y",
         "sudo chmod +x /tmp/setting/web_setting.sh",
