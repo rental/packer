@@ -1,1 +1,1 @@
-azureuser    ALL=(ALL)   NOPASSWD: ALL
+nnet    ALL=(ALL)   NOPASSWD: ALL
